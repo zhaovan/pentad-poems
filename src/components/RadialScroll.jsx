@@ -284,7 +284,7 @@ export default function Radial() {
       <>
         <SeasonsCanvas season={season + 34} key="canvas" />
         <SeasonsBackground day={activeIndex.get()} />
-
+        {/* 
         <div
           style={{
             position: "fixed",
@@ -305,7 +305,7 @@ export default function Radial() {
           pheasants crying: {isPheasantActive ? "yes" : "no"} <br />
           riverActive: {isRiverActive ? "yes" : "no"} <br />
           thunderActive: {isThunderActive ? "yes" : "no"} <br />
-        </div>
+        </div> */}
 
         <p
           style={{
