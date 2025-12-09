@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap");
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -9,6 +11,14 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --text-primary: #1d0303;
+
+  --text-green: #4eac15;
+  --text-dark-green: #022e18;
+  --text-red: #e71717;
+
+  --background-primary: #0c1d03;
 }
 
 @font-face {
@@ -16,12 +26,30 @@
   src: url("/Clarendon-Black.ttf") format("truetype");
 }
 
-body {
-  /* height: 600000px; */
+@font-face {
+  font-family: "Forma";
+  src: url("/FormaVariable.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Brigends";
+  src: url("/BrigendsExpanded.otf") format("opentype");
+}
+
+.landing {
+  font-family: Brigends, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.sans {
+  font-family: Forma, Avenir, Helvetica, Arial, sans-serif;
 }
 
 .clarendon {
   font-family: "Clarendon", serif;
+}
+
+.chinese {
+  font-family: "Ma Shan Zheng", cursive;
 }
 
 /* 1. Use a more-intuitive box-sizing model */
@@ -98,4 +126,120 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+@keyframes grainMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-72px, -36px);
+  }
+  20% {
+    transform: translate(36px, -72px);
+  }
+  30% {
+    transform: translate(-36px, 36px);
+  }
+  40% {
+    transform: translate(72px, 72px);
+  }
+  50% {
+    transform: translate(-36px, -72px);
+  }
+  60% {
+    transform: translate(18px, 36px);
+  }
+  70% {
+    transform: translate(-72px, 18px);
+  }
+  80% {
+    transform: translate(36px, -36px);
+  }
+  90% {
+    transform: translate(-36px, 72px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.banner {
+  font-family: "Ma Shan Zheng", cursive;
+  writing-mode: vertical-rl;
+  background: linear-gradient(
+    90deg,
+    #f6e27a 0%,
+    #fdcb03 30%,
+    #d49b00 60%,
+    #f7e6a0 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent; /* for browsers that support background-clip */
+  /* subtle edge to help readability on any background */
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.text-fit {
+  display: flex;
+  container-type: inline-size;
+
+  --captured-length: initial;
+  --support-sentinel: var(--captured-length, 9999px);
+
+  & > [aria-hidden] {
+    visibility: hidden;
+  }
+
+  & > :not([aria-hidden]) {
+    flex-grow: 1;
+    container-type: inline-size;
+
+    --captured-length: 100cqi;
+    --available-space: var(--captured-length);
+
+    & > * {
+      --support-sentinel: inherit;
+      --captured-length: 100cqi;
+      --ratio: tan(
+        atan2(
+          var(--available-space),
+          var(--available-space) - var(--captured-length)
+        )
+      );
+      --font-size: clamp(
+        1em,
+        1em * var(--ratio),
+        var(--max-font-size, infinity * 1px) - var(--support-sentinel)
+      );
+      inline-size: var(--available-space);
+
+      &:not(.text-fit) {
+        display: block;
+        font-size: var(--font-size);
+
+        @container (inline-size > 0) {
+          white-space: nowrap;
+        }
+      }
+
+      &.text-fit {
+        --captured-length2: var(--font-size);
+        font-variation-settings: "opsz" tan(atan2(var(--captured-length2), 1px));
+      }
+    }
+  }
+}
+
+@property --captured-length {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: true;
+}
+
+@property --captured-length2 {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: true;
 }

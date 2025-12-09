@@ -1,8 +1,10 @@
 // SeasonsCanvas.jsx
 import { Canvas } from "@react-three/fiber";
 import SeasonsShader from "./SeasonsShader";
+import CloudOverlayShader from "./CloudOverlayShader";
+import TreeShadowOverlayShader from "./TreeShadowOverlayShader";
 
-export default function SeasonsCanvas({ season = 0 }) {
+export default function SeasonsCanvas() {
   return (
     <Canvas
       camera={{ position: [0, 0, 1], fov: 50 }}
@@ -12,9 +14,11 @@ export default function SeasonsCanvas({ season = 0 }) {
         position: "fixed",
         top: 0,
         left: 0,
+        zIndex: 10,
+        mixBlendMode: "multiply",
       }}
     >
-      <SeasonsShader season={season} />
+      <TreeShadowOverlayShader />
     </Canvas>
   );
 }

@@ -1,0 +1,67 @@
+import { useScroll } from "motion/react";
+import poem from "../Poem";
+import { useMotionValueEvent } from "motion/react";
+import { useState } from "react";
+
+export default function Circle() {
+  const RADIUS = 400;
+  const angle = 360 / poem.length;
+  const { scrollY } = useScroll();
+
+  const [angleMultiplier, setAngleMultiplier] = useState(0);
+
+  useMotionValueEvent(scrollY, "change", (v) => {
+    setAngleMultiplier(v / 10);
+  });
+
+  return (
+    <div
+      style={{
+        width: "100vw",
+        height: "20000vh",
+        backgroundColor: "var(--background-primary)",
+      }}
+    >
+      <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 0,
+          height: 0,
+        }}
+      >
+        {poem.map((line, index) => {
+          const theta = angle * index;
+
+          return (
+            <p
+              key={index}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                whiteSpace: "nowrap",
+                color: "#969494ff",
+                fontSize: "0.5rem",
+                transformOrigin: "0 0",
+                transform: `
+                rotate(${
+                  theta + angleMultiplier
+                }deg)          /* rotate around circle center */
+                translate(${RADIUS}px, 0)    /* push outward */
+                rotate(${
+                  -theta - angleMultiplier
+                }deg)         /* undo rotation → upright */
+              `,
+              }}
+            >
+              {line.english}
+            </p>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

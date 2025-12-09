@@ -1,0 +1,17 @@
+.seasons-background {
+  --color-1: #a0d8f7;
+  --color-2: #f0e68c;
+  --color-3: #228b22;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    var(--color-1) 0%,
+    var(--color-2) 50%,
+    var(--color-3) 100%
+  );
+  z-index: 0;
+}

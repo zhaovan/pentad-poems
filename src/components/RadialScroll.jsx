@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import poem from "../Poem";
 import {
   useScroll,
@@ -7,60 +7,115 @@ import {
   useMotionValueEvent,
   useTransform,
 } from "motion/react";
-import SeasonsShader from "./SeasonsShader";
 import SeasonsCanvas from "./SeasonsCanvas";
+import SeasonsBackground from "./SeasonsBackground";
+import { TOTAL_SCROLL_HEIGHT } from "../constants";
+
+// Update active index on scroll
+const ANGLE_ROTATION = 20;
+const ANGLE_STEP = (360 / poem.length) * ANGLE_ROTATION;
+const DEGREES_PER_ITEM = ANGLE_STEP; // i * ANGLE_STEP is how you're placing items
+const RADIUS = 600;
+const VISIBLE_RANGE = 4; // how many lines appear around the active index
+
+const PHEASANT_NO_CRY = [306, 345];
+const CICADA_CRY = [141, 271];
+const MOCKINGBIRD_CRY = [126, 133];
+
+const RIVER_SOUND = [1, 242];
+const THUNDER_ACTIVE = [50, 232];
+
+const monthsInChinese = [
+  "一月",
+  "二月",
+  "三月",
+  "四月",
+  "五月",
+  "六月",
+  "七月",
+  "八月",
+  "九月",
+  "十月",
+  "十一月",
+  "十二月",
+];
+
+const poemWithDates = poem.map((line, i) => {
+  const start = new Date(2025, 1, 4); // Feb 4, 2024 (month is 0-indexed)
+  const date = new Date(start);
+  date.setDate(start.getDate() + i);
+
+  return {
+    ...line,
+    date: date.toISOString().split("T")[0], // "2024-02-04"
+  };
+});
 
 export default function Radial() {
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const [currentDate, setCurrentDate] = useState("");
   const [season, setSeason] = useState(0);
 
-  const poemWithDates = poem.map((line, i) => {
-    const start = new Date(2025, 1, 4); // Feb 4, 2024 (month is 0-indexed)
-    const date = new Date(start);
-    date.setDate(start.getDate() + i);
+  const riverAudio = useRef(null);
 
-    return {
-      line,
-      date: date.toISOString().split("T")[0], // "2024-02-04"
-    };
-  });
+  const cicadaAudio = useRef(null);
+  const mockingbirdAudio = useRef(null);
+  const pheasantAudio = useRef(null);
+  const thunderAudio = useRef(null);
+
+  const [isCicadaActive, setIsCicadaActive] = useState(false);
+  const [isMockingbirdActive, setIsMockingbirdActive] = useState(false);
+  const [isPheasantActive, setIsPheasantActive] = useState(false);
+  const [isRiverActive, setIsRiverActive] = useState(false);
+
+  const [isThunderActive, setIsThunderActive] = useState(false);
+
+  const chimeAudio = useRef(null);
 
   const activeIndex = useMotionValue(0);
 
-  useMotionValueEvent(activeIndex, "change", (index) => {
-    const { line, date } =
-      poemWithDates[Math.floor(index) % poemWithDates.length];
-    setCurrentDate({ line, date });
-  });
+  const [ready, setReady] = useState(false);
 
-  // Update active index on scroll
-  const ANGLE_ROTATION = 20;
-  const angleStep = (360 / poem.length) * ANGLE_ROTATION;
-  const degreesPerItem = angleStep; // i * angleStep is how you're placing items
+  useEffect(() => {
+    const unsub = scrollYProgress.on("change", (v) => {
+      if (v === 1) {
+        const target = 0;
+        window.scrollTo({ top: target });
+      }
+      if (v === 0) {
+        const target = document.body.scrollHeight;
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    // This is your wheel rotation in degrees
-    const rotationDeg = latest / 20;
+        window.scrollTo({ top: target });
+      }
+    });
 
-    // Convert rotation → index
-    const index = Math.round(
-      (((rotationDeg / degreesPerItem) % poem.length) + poem.length) %
-        poem.length
-    );
+    return () => unsub();
+  }, []);
 
-    activeIndex.set(index);
-    setSeason(index);
-  });
+  useLayoutEffect(() => {
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
 
-  const radius = 600;
+    const todaysDate = new Date();
+    const startingDate = new Date(2025, 1, 4);
+    const timeDiff = todaysDate - startingDate;
+    const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
-  const VISIBLE_RANGE = 4; // how many lines appear around the active index
+    const scrollPosition = TOTAL_SCROLL_HEIGHT * ((dayDiff - 1) / 365);
 
-  const transformedScrollY = useTransform(
-    scrollY,
-    (value) => (value * -1) / 20
-  );
+    // Wait two frames so DOM fully settles
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        window.scrollTo({ top: scrollPosition, behavior: "instant" });
+
+        // allow one more frame for scroll position to stabilize
+        requestAnimationFrame(() => {
+          setReady(true);
+        });
+      });
+    });
+  }, []);
 
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
@@ -68,114 +123,335 @@ export default function Radial() {
   }).format(currentDate?.date ? new Date(currentDate.date) : new Date());
 
   const month = formattedDate.split(" ")[0];
+  const monthIndex = new Date(
+    currentDate?.date ? new Date(currentDate.date) : new Date()
+  ).getMonth();
+  const monthInChinese = monthsInChinese[monthIndex];
   const day = formattedDate.split(" ")[1];
 
-  const containerRef = useRef(null);
-
-  const [dayWidth, setDayWidth] = useState(0);
-
   useEffect(() => {
-    if (containerRef.current) {
-      const rect = containerRef.current.getBoundingClientRect();
-      console.log(rect);
-      setDayWidth(rect.width);
+    // Initialize all audio objects
+    riverAudio.current = new Audio("/river.ogg");
+    riverAudio.current.loop = true;
+    riverAudio.current.volume = 0.2;
+
+    cicadaAudio.current = new Audio("/cicadas.mp3");
+    cicadaAudio.current.volume = 0.1;
+    cicadaAudio.current.loop = true;
+
+    mockingbirdAudio.current = new Audio("/mockingbird.mp3");
+    mockingbirdAudio.current.volume = 0.1;
+    mockingbirdAudio.current.loop = true;
+
+    pheasantAudio.current = new Audio("/pheasant.mp3");
+    pheasantAudio.current.volume = 0.5;
+    pheasantAudio.current.loop = true;
+
+    chimeAudio.current = new Audio("/chimes.mp3");
+    chimeAudio.current.volume = 0.05;
+    chimeAudio.current.playbackRate = 0.9;
+    chimeAudio.current.loop = true;
+
+    thunderAudio.current = new Audio("/thunder.mp3");
+    thunderAudio.current.volume = 0.2;
+    thunderAudio.current.loop = true;
+
+    // ---- CLEANUP WHEN COMPONENT UNMOUNTS ----
+    return () => {
+      const audios = [
+        riverAudio,
+        cicadaAudio,
+        mockingbirdAudio,
+        pheasantAudio,
+        chimeAudio,
+        thunderAudio,
+      ];
+
+      for (const ref of audios) {
+        if (ref.current) {
+          // Stop audio immediately
+          ref.current.pause();
+
+          // Reset playback to beginning so it’s never stuck partially played
+          ref.current.currentTime = 0;
+
+          // Drop the reference so GC can clean it
+          ref.current = null;
+        }
+      }
+    };
+  }, []);
+
+  useMotionValueEvent(activeIndex, "change", (index) => {
+    const { line, date } =
+      poemWithDates[Math.floor(index) % poemWithDates.length];
+    setCurrentDate({ line, date });
+
+    if (riverAudio.current) {
+      if (RIVER_SOUND[0] <= index && index <= RIVER_SOUND[1]) {
+        setIsRiverActive(true);
+        riverAudio.current.volume = 0.3;
+        riverAudio.current.play();
+      } else {
+        setIsRiverActive(false);
+        riverAudio.current.pause();
+      }
+    }
+
+    if (chimeAudio.current) {
+      chimeAudio.current.play();
+    }
+
+    if (thunderAudio.current) {
+      if (THUNDER_ACTIVE[0] <= index && index <= THUNDER_ACTIVE[1]) {
+        setIsThunderActive(true);
+        thunderAudio.current.play();
+      } else {
+        setIsThunderActive(false);
+        thunderAudio.current.pause();
+      }
+    }
+
+    if (
+      cicadaAudio.current &&
+      mockingbirdAudio.current &&
+      pheasantAudio.current
+    ) {
+      if (CICADA_CRY[0] <= index && index <= CICADA_CRY[1]) {
+        cicadaAudio.current.play();
+        setIsCicadaActive(true);
+      } else {
+        cicadaAudio.current.pause();
+
+        setIsCicadaActive(false);
+      }
+
+      if (MOCKINGBIRD_CRY[0] <= index && index <= MOCKINGBIRD_CRY[1]) {
+        mockingbirdAudio.current.play();
+        setIsMockingbirdActive(true);
+      } else {
+        mockingbirdAudio.current.pause();
+        setIsMockingbirdActive(false);
+      }
+
+      if (PHEASANT_NO_CRY[0] > index || index > PHEASANT_NO_CRY[1]) {
+        if (pheasantAudio.current.paused) {
+          pheasantAudio.current.play();
+          setIsPheasantActive(true);
+        }
+      } else {
+        pheasantAudio.current.pause();
+        setIsPheasantActive(false);
+      }
     }
   });
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // This is your wheel rotation in degrees
+    const rotationDeg = latest / 20;
+
+    // Convert rotation → index
+    const index = Math.round(
+      (((rotationDeg / DEGREES_PER_ITEM) % poem.length) + poem.length) %
+        poem.length
+    );
+
+    activeIndex.set(index);
+    setSeason(index);
+  });
+
+  const transformedScrollY = useTransform(
+    scrollY,
+    (value) => (value * -1) / 20
+  );
+
+  if (!ready) {
+    return (
+      <div
+        style={{
+          position: "fixed",
+          inset: 0,
+          background: "black", // or your page background
+          zIndex: 9999999999,
+        }}
+      />
+    );
+  }
 
   return (
     <div>
       {/* Need to offset */}
-      <SeasonsCanvas season={season - 30} />
+      <>
+        <SeasonsCanvas season={season + 34} key="canvas" />
+        <SeasonsBackground day={activeIndex.get()} />
 
-      <div
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: 20,
-          transform: "translateY(-50%)",
-          display: "flex",
-          flexDirection: "column",
-          pointerEvents: "none", // optional
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        {/* Month */}
         <div
           style={{
-            fontSize: "4rem",
-            fontFamily: "serif",
-            mixBlendMode: "screen",
-            lineHeight: 1,
-            color: "green",
-            position: "relative",
-            top: "40px",
+            position: "fixed",
+            top: "1rem",
+            right: "1rem",
+            backgroundColor: "black",
+            color: "white",
           }}
         >
-          {month}
+          DEBUG PANEL
+          <br />
+          Active Index: {activeIndex.get().toFixed(2)}
+          <br />
+          Date: {currentDate.date} ({currentDate.line})
+          <br />
+          cicadas chirping: {isCicadaActive ? "yes" : "no"} <br />
+          mockingbirds chirping: {isMockingbirdActive ? "yes" : "no"} <br />
+          pheasants crying: {isPheasantActive ? "yes" : "no"} <br />
+          riverActive: {isRiverActive ? "yes" : "no"} <br />
+          thunderActive: {isThunderActive ? "yes" : "no"} <br />
         </div>
 
-        {/* Day */}
-        <div
-          className="clarendon"
-          ref={containerRef}
+        <p
           style={{
-            fontSize: "20rem",
-            letterSpacing: "-0.05em",
-            color: "red",
-            opacity: 0.7,
-            lineHeight: 0.65,
-            mixBlendMode: "screen",
-            width: "400px",
-            textAlign: "center",
+            position: "fixed",
+            bottom: "2rem",
+            right: "4rem",
+            fontSize: "2rem",
+            color: "var(--text-dark-green",
+          }}
+          className="chinese"
+        >
+          民国{`[    ]`}年
+        </p>
+        <p
+          style={{
+            position: "fixed",
+            bottom: "6rem",
+            right: "4rem",
+            fontSize: "2rem",
+            color: "var(--text-dark-green",
+            border: "3px solid var(--text-dark-green",
+            borderRadius: "50%",
+            padding: "0 1rem",
+          }}
+          className="chinese"
+        >
+          {monthInChinese}
+        </p>
+
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: 20,
+            zIndex: 30,
+            transform: "translateY(-50%)",
+            display: "flex",
+            flexDirection: "column",
+            pointerEvents: "none", // optional
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {day}
-        </div>
-      </div>
+          {/* Month */}
+          <div
+            style={{
+              fontSize: "4rem",
+              fontFamily: "serif",
+              mixBlendMode: "screen",
+              lineHeight: 1,
+              color: "var(--text-green",
+              position: "relative",
+              top: "40px",
+            }}
+          >
+            {month}
+          </div>
 
-      <motion.div
-        style={{
-          position: "fixed",
-          left: 0,
-          top: "50%",
-          rotate: transformedScrollY, // whole wheel rotates with scroll
-        }}
-      >
-        {poem.map((text, i) => {
-          const angle = i * angleStep;
-          const opacity = useTransform(activeIndex, (current) => {
+          {/* Day */}
+          <div
+            className="clarendon"
+            style={{
+              fontSize: "20rem",
+              letterSpacing: "-0.05em",
+              color: "var(--text-red)",
+              opacity: 0.7,
+              lineHeight: 0.65,
+              mixBlendMode: "screen",
+              width: "400px",
+              textAlign: "center",
+            }}
+          >
+            {day}
+          </div>
+        </div>
+
+        <motion.div
+          style={{
+            position: "fixed",
+            left: 0,
+            zIndex: 30,
+            top: "50%",
+            rotate: transformedScrollY, // whole wheel rotates with scroll
+          }}
+        >
+          {poem.map((line, i) => {
+            const angle = i * ANGLE_STEP;
+            const current = activeIndex.get();
             const raw = Math.abs(current - i);
             const wrapped = poem.length - raw;
             const diff = Math.min(raw, wrapped); // 👈 circular distance!
 
-            return diff <= VISIBLE_RANGE ? 1 : 0;
-          });
+            const opacity = diff <= VISIBLE_RANGE ? 1 : 0;
 
-          return (
-            <motion.div
-              key={i}
-              style={{
-                "--index": i,
-                opacity,
-                position: "fixed",
-                top: "50%",
-                color: "black",
-                transform: `
+            return (
+              <motion.p
+                key={i}
+                style={{
+                  "--index": i,
+                  opacity,
+                  position: "fixed",
+                  top: "50%",
+                  fontSize: "1.5rem",
+                  color: "var(--text-dark-green",
+                  transform: `
                   rotate(${angle}deg)
-                  translate(${radius}px)
+                  translate(${RADIUS}px)
                   
                 `,
-                transformOrigin: "top left",
-                width: "max-content",
+                  transformOrigin: "top left",
+                  width: "max-content",
+                }}
+                className="sans"
+              >
+                {line.english}
+              </motion.p>
+            );
+          })}
+        </motion.div>
+
+        {poem.map((line, i) => {
+          const isActive = Math.floor(activeIndex.get()) === i;
+
+          return (
+            <motion.p
+              key={"duplicate" + " " + i + "ch"}
+              style={{
+                "--index": i,
+                opacity: isActive ? 1 : 0,
+                position: "fixed",
+                top: "2rem",
+                right: "4rem",
+                color: "var(--text-dark-green)",
+                writingMode: "vertical-rl",
+                fontSize: "2rem",
               }}
-              className="text-xs uppercase tracking-wide whitespace-nowrap"
+              className="chinese"
             >
-              {text} {i}
-            </motion.div>
+              {`[`}
+              {line.chinese}
+              {`]`}
+            </motion.p>
           );
         })}
-      </motion.div>
+      </>
+      )
     </div>
   );
 }
