@@ -1545,8 +1545,8 @@ const poem = [
   },
   {
     day: 360,
-    english: "The water from the ice moves more freely now",
-    chinese: "冰化的水现在流动得更自由",
+    english: "The water from the ice moves more freely",
+    chinese: "冰化的水流动得更自由",
   },
   {
     day: 361,

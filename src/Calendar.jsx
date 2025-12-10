@@ -50,8 +50,7 @@ function Calendar() {
         >
           {renderIcon()}
         </button>
-        <AnimatePresence>
-          {}
+        <AnimatePresence mode="wait">
           {mode === "all-lines" && (
             <motion.div
               initial={{ opacity: 0 }}

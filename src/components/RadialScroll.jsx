@@ -427,7 +427,7 @@ export default function Radial() {
         </motion.div>
 
         {poem.map((line, i) => {
-          const isActive = Math.floor(activeIndex.get()) === i;
+          const isActive = Math.floor(activeIndex.get()) % 364 === i;
 
           return (
             <motion.p

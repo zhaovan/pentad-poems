@@ -6,12 +6,12 @@ import { useState } from "react";
 export default function Circle() {
   const RADIUS = 400;
   const angle = 360 / poem.length;
-  const { scrollY } = useScroll();
+  const { scrollYProgress } = useScroll();
 
   const [angleMultiplier, setAngleMultiplier] = useState(0);
 
-  useMotionValueEvent(scrollY, "change", (v) => {
-    setAngleMultiplier(v / 10);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setAngleMultiplier(v * 360 * 50);
   });
 
   return (
@@ -19,7 +19,7 @@ export default function Circle() {
       style={{
         width: "100vw",
         height: "20000vh",
-        backgroundColor: "var(--background-primary)",
+        backgroundColor: "#290000ff",
       }}
     >
       <div
@@ -43,7 +43,7 @@ export default function Circle() {
                 top: 0,
                 left: 0,
                 whiteSpace: "nowrap",
-                color: "#969494ff",
+                color: "#d0d0d0ff",
                 fontSize: "0.5rem",
                 transformOrigin: "0 0",
                 transform: `
