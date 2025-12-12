@@ -243,3 +243,10 @@ h6 {
   initial-value: 0px;
   inherits: true;
 }
+
+.enter-button {
+  transition: color 0.15s ease;
+}
+.enter-button:hover {
+  color: gray;
+}

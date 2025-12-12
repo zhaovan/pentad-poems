@@ -103,8 +103,8 @@ function Calendar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{
-              layout: { duration: 0.4, type: "tween", ease: "easeOut" },
-              opacity: { duration: 0.4 },
+              layout: { duration: 0.5, type: "tween", ease: "easeOut" },
+              opacity: { duration: 0.5 },
             }}
             style={{
               position: "fixed",

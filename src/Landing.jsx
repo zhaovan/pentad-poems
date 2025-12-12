@@ -87,7 +87,7 @@ export default function Landing() {
               </p>
 
               <button
-                className="sans"
+                className="sans enter-button"
                 style={{
                   background: "inherit",
                   border: "none",
@@ -97,6 +97,8 @@ export default function Landing() {
                 onClick={() => setLandingOpened(true)}
               >
                 Enter
+                <br />
+                <span style={{ fontSize: "1rem" }}>(sound recommended)</span>
               </button>
 
               <p
