@@ -250,3 +250,55 @@ h6 {
 .enter-button:hover {
   color: gray;
 }
+
+.all-lines-eng {
+  font-size: 1.25rem;
+}
+
+.all-lines-chinese {
+  font-size: 1rem;
+}
+
+.all-lines-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.landing-text {
+  font-size: 20vh;
+}
+
+.landing-button {
+  font-size: 1.5rem;
+}
+
+.landing-screen-container {
+  gap: 0rem;
+}
+
+@media (max-width: 600px) {
+  .all-lines-eng {
+    font-size: 1rem;
+  }
+  .all-lines-chinese {
+    font-size: 0.875rem;
+  }
+
+  .all-lines-container {
+    align-items: flex-start;
+  }
+
+  .landing-text {
+    font-size: 12vh;
+  }
+
+  .landing-button {
+    font-size: 0.875rem;
+  }
+
+  .landing-screen-container {
+    gap: 2rem;
+  }
+}

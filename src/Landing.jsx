@@ -43,6 +43,7 @@ export default function Landing() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
+            className="landing-screen-container"
             style={{
               display: "flex",
               flexDirection: "column",
@@ -50,7 +51,6 @@ export default function Landing() {
               justifyContent: "center",
               height: "100vh",
               color: "#4eac15",
-
               padding: "0 1rem",
             }}
           >
@@ -75,9 +75,8 @@ export default function Landing() {
               }}
             >
               <p
-                className="chinese"
+                className="chinese landing-text"
                 style={{
-                  fontSize: "240px",
                   writingMode: "vertical-rl",
                   textAlign: "center",
                   lineHeight: 1,
@@ -87,24 +86,27 @@ export default function Landing() {
               </p>
 
               <button
-                className="sans enter-button"
+                className="sans enter-button landing-button"
                 style={{
                   background: "inherit",
                   border: "none",
                   cursor: "pointer",
-                  fontSize: "2rem",
+
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  lineHeight: 1,
                 }}
                 onClick={() => setLandingOpened(true)}
               >
                 Enter
-                <br />
-                <span style={{ fontSize: "1rem" }}>(sound recommended)</span>
+                <span>(sound recommended)</span>
               </button>
 
               <p
-                className="chinese "
+                className="chinese landing-text"
                 style={{
-                  fontSize: "240px",
                   writingMode: "vertical-rl",
                   textAlign: "center",
                   lineHeight: 1,

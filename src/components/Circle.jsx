@@ -1,10 +1,11 @@
 import { useScroll } from "motion/react";
 import poem from "../Poem";
 import { useMotionValueEvent } from "motion/react";
-import { use, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Circle() {
-  const RADIUS = 400;
+  let RADIUS = 400;
+  let ADDITIONAL_NUMBER = 0;
   const angle = 360 / poem.length;
   const { scrollYProgress } = useScroll();
 
@@ -19,6 +20,23 @@ export default function Circle() {
       window.scrollTo({ top: 0 });
     }
   });
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  if (width < 1500) {
+    RADIUS = lerp(10, 200, width / 1000);
+    ADDITIONAL_NUMBER = lerp(90, 0, width / 1500);
+  }
 
   return (
     <div
@@ -51,7 +69,7 @@ export default function Circle() {
                 }deg)          /* rotate around circle center */
                 translate(${RADIUS}px, 0)    /* push outward */
                 rotate(${
-                  -theta - angleMultiplier
+                  -theta - angleMultiplier - ADDITIONAL_NUMBER
                 }deg)         /* undo rotation → upright */
               `,
             }}

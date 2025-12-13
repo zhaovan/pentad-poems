@@ -64,18 +64,11 @@ export default function AllLines() {
         return (
           <div
             key={index + "ch" + line.chinese + "month"}
-            className="sans"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
+            className="sans all-lines-container"
           >
             <span>{`${month}/${day}`}</span>
-            <p style={{ fontSize: "1.25rem" }}>{line.english}</p>
-            <p className="chinese" style={{ fontSize: "1rem" }}>
-              {line.chinese}
-            </p>
+            <p className="all-lines-eng">{line.english}</p>
+            <p className="chinese all-lines-chinese">{line.chinese}</p>
           </div>
         );
       })}

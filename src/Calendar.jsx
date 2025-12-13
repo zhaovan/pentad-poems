@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Calendar.css";
 import RadialScroll from "./components/RadialScroll.jsx";
 import { AnimatePresence, motion } from "motion/react";
@@ -17,6 +17,8 @@ function Calendar() {
   // radial or all-lines or cicle
   const [mode, setMode] = useState("radial");
   const [openExplanation, setOpenExplanation] = useState(false);
+
+  const chimeAudio = useRef(null);
 
   function switchModes() {
     if (mode === "radial") {
@@ -37,6 +39,31 @@ function Calendar() {
       return <SunIcon />;
     }
   }
+
+  useEffect(() => {
+    chimeAudio.current = new Audio("/chimes.mp3");
+    chimeAudio.current.volume = 0.05;
+    chimeAudio.current.playbackRate = 0.9;
+    chimeAudio.current.loop = true;
+    chimeAudio.current.play().catch((err) => {
+      if (err.name !== "AbortError") {
+        console.error(err);
+      }
+    });
+
+    return () => {
+      if (chimeAudio.current) {
+        // Stop audio immediately
+        chimeAudio.current.pause();
+
+        // Reset playback to beginning so it’s never stuck partially played
+        chimeAudio.current.currentTime = 0;
+
+        // Drop the reference so GC can clean it
+        chimeAudio.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div>

@@ -15,8 +15,6 @@ import { TOTAL_SCROLL_HEIGHT } from "../constants";
 const ANGLE_ROTATION = 20;
 const ANGLE_STEP = (360 / poem.length) * ANGLE_ROTATION;
 const DEGREES_PER_ITEM = ANGLE_STEP; // i * ANGLE_STEP is how you're placing items
-const RADIUS = 600;
-const VISIBLE_RANGE = 4; // how many lines appear around the active index
 
 const PHEASANT_NO_CRY = [306, 345];
 const CICADA_CRY = [141, 271];
@@ -52,6 +50,9 @@ const poemWithDates = poem.map((line, i) => {
 });
 
 export default function Radial() {
+  let RADIUS = 600;
+
+  let VISIBLE_RANGE = 4; // how many lines appear around the active index
   const { scrollY, scrollYProgress } = useScroll();
   const [currentDate, setCurrentDate] = useState("");
   const [season, setSeason] = useState(0);
@@ -69,8 +70,6 @@ export default function Radial() {
   const [isRiverActive, setIsRiverActive] = useState(false);
 
   const [isThunderActive, setIsThunderActive] = useState(false);
-
-  const chimeAudio = useRef(null);
 
   const activeIndex = useMotionValue(0);
 
@@ -117,6 +116,14 @@ export default function Radial() {
     });
   }, []);
 
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     month: "long",
     day: "numeric",
@@ -133,7 +140,7 @@ export default function Radial() {
     // Initialize all audio objects
     riverAudio.current = new Audio("/river.ogg");
     riverAudio.current.loop = true;
-    riverAudio.current.volume = 0.2;
+    riverAudio.current.volume = 0.05;
 
     cicadaAudio.current = new Audio("/cicadas.mp3");
     cicadaAudio.current.volume = 0.1;
@@ -147,13 +154,8 @@ export default function Radial() {
     pheasantAudio.current.volume = 0.5;
     pheasantAudio.current.loop = true;
 
-    chimeAudio.current = new Audio("/chimes.mp3");
-    chimeAudio.current.volume = 0.05;
-    chimeAudio.current.playbackRate = 0.9;
-    chimeAudio.current.loop = true;
-
     thunderAudio.current = new Audio("/thunder.mp3");
-    thunderAudio.current.volume = 0.2;
+    thunderAudio.current.volume = 0.05;
     thunderAudio.current.loop = true;
 
     // ---- CLEANUP WHEN COMPONENT UNMOUNTS ----
@@ -163,7 +165,6 @@ export default function Radial() {
         cicadaAudio,
         mockingbirdAudio,
         pheasantAudio,
-        chimeAudio,
         thunderAudio,
       ];
 
@@ -190,16 +191,11 @@ export default function Radial() {
     if (riverAudio.current) {
       if (RIVER_SOUND[0] <= index && index <= RIVER_SOUND[1]) {
         setIsRiverActive(true);
-        riverAudio.current.volume = 0.3;
         riverAudio.current.play();
       } else {
         setIsRiverActive(false);
         riverAudio.current.pause();
       }
-    }
-
-    if (chimeAudio.current) {
-      chimeAudio.current.play();
     }
 
     if (thunderAudio.current) {
@@ -278,6 +274,15 @@ export default function Radial() {
     );
   }
 
+  function lerp(a, b, t) {
+    return a + (b - a) * t;
+  }
+
+  if (width < 1200) {
+    RADIUS = lerp(10, 200, width / 1000);
+    VISIBLE_RANGE = 0;
+  }
+
   return (
     <div>
       {/* Need to offset */}
@@ -339,9 +344,10 @@ export default function Radial() {
           style={{
             position: "fixed",
             top: "50%",
-            left: 20,
+            left: width > 600 ? 20 : "50%",
             zIndex: 30,
-            transform: "translateY(-50%)",
+            transform:
+              width > 600 ? "translateY(-50%)" : "translate(-50%, -50%)",
             display: "flex",
             flexDirection: "column",
             pointerEvents: "none", // optional
@@ -356,9 +362,8 @@ export default function Radial() {
               fontFamily: "serif",
               mixBlendMode: "screen",
               lineHeight: 1,
-              color: "var(--text-green",
+              color: "var(--text-green)",
               position: "relative",
-              top: "40px",
             }}
           >
             {month}
@@ -373,6 +378,8 @@ export default function Radial() {
               color: "var(--text-red)",
               opacity: 0.7,
               lineHeight: 0.65,
+              top: "-40px",
+              position: "relative",
               mixBlendMode: "screen",
               width: "400px",
               textAlign: "center",
@@ -386,6 +393,7 @@ export default function Radial() {
           style={{
             position: "fixed",
             left: 0,
+            display: width < 600 ? "none" : "block",
             zIndex: 30,
             top: "50%",
             rotate: transformedScrollY, // whole wheel rotates with scroll
@@ -407,7 +415,7 @@ export default function Radial() {
                   "--index": i,
                   opacity,
                   position: "fixed",
-                  top: "50%",
+                  top: width < 600 ? "75%" : "50%",
                   fontSize: "1.5rem",
                   color: "var(--text-dark-green",
                   transform: `
@@ -451,7 +459,41 @@ export default function Radial() {
           );
         })}
       </>
-      )
+
+      {/* Mobile display */}
+      {poem.map((line, i) => {
+        const angle = i * ANGLE_STEP;
+        const current = activeIndex.get();
+        const raw = Math.abs(current - i);
+        const wrapped = poem.length - raw;
+        const diff = Math.min(raw, wrapped); // 👈 circular distance!
+
+        const opacity = diff <= VISIBLE_RANGE ? 1 : 0;
+
+        return (
+          <motion.p
+            key={i}
+            style={{
+              "--index": i,
+              opacity,
+              position: "fixed",
+              display: width >= 600 ? "none" : "block",
+              top: "65%",
+              left: "50%",
+              transition: "opacity 0.1s ease-out",
+              transform: `translateX(-50%)`,
+              width: "50vw",
+              fontSize: "1.5rem",
+              color: "var(--text-dark-green",
+              transformOrigin: "top left",
+              textAlign: "center",
+            }}
+            className="sans"
+          >
+            {line.english}
+          </motion.p>
+        );
+      })}
     </div>
   );
 }

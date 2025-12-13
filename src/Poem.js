@@ -526,13 +526,13 @@ const poem = [
   { day: 137, english: "Deer shed their antlers", chinese: "鹿角解" },
   {
     day: 138,
-    english: "The forests loosen their grip on what is no longer needed.",
+    english: "The forests loosen their grip on what is no longer needed",
     chinese: "森林放开不再需要之物的执握",
   },
   {
     day: 139,
-    english: "I, too, am trying to set something down",
-    chinese: "我也在试图放下些什么",
+    english: "I, too, am an object in need of breaking",
+    chinese: "我也是一个需要被打破的物体",
   },
   {
     day: 140,
@@ -541,10 +541,10 @@ const poem = [
   },
   {
     day: 141,
-    english: "It feels impossible to hear the one that’s coming next.",
+    english: "It feels impossible to hear the one that’s coming next",
     chinese: "似乎无法听见下一个将至的声音",
   },
-  { day: 142, english: "Cicadas begin to sing", chinese: "蜩始鸣." },
+  { day: 142, english: "Cicadas begin to sing", chinese: "蜩始鸣" },
   {
     day: 143,
     english: "A bug can produce so much song in its carapace",
@@ -589,52 +589,52 @@ const poem = [
   },
   {
     day: 153,
-    english: "Warm winds arrive.",
+    english: "Warm winds arrive",
     chinese: "温风至",
   },
   {
     day: 154,
-    english: "Cicadas test their voices in the canopy.",
+    english: "Cicadas test their voices in the canopy",
     chinese: "蝉在林冠试探它们的嗓音",
   },
   {
     day: 155,
-    english: "I remember the sound of envy.",
+    english: "I remember the sound of envy",
     chinese: "我记得嫉妒的声音",
   },
   {
     day: 156,
-    english: "The kitchen windows fogged with July.",
+    english: "The kitchen windows fogged with July",
     chinese: "厨房的窗在七月起雾",
   },
   {
     day: 157,
-    english: "And somewhere, heat gathers itself.",
+    english: "And somewhere, heat gathers itself",
     chinese: "某处，热气凝聚",
   },
   {
     day: 158,
-    english: "Crickets take shelter in the walls.",
+    english: "Crickets take shelter in the walls",
     chinese: "蟋蜂居壁",
   },
   {
     day: 159,
-    english: "The air inside holds its breath for nightfall.",
+    english: "The air inside holds its breath for nightfall",
     chinese: "屋内的空气屏息等候夜幕",
   },
   {
     day: 160,
-    english: "My brother picked at the peeling paint of our hallway.",
+    english: "My brother picked at the peeling paint of our hallway",
     chinese: "我兄弟剥着走廊剥落的油漆",
   },
   {
     day: 161,
-    english: "In silence, the house could listen to us.",
+    english: "In silence, the house could listen to us",
     chinese: "在沉默中，房子能倾听我们",
   },
   {
     day: 162,
-    english: "The warm wind finds every crack.",
+    english: "The warm wind finds every crack",
     chinese: "暖风找到每一道缝隙",
   },
   { day: 163, english: "Young hawks learn to fly", chinese: "鹰始挚" },
@@ -696,23 +696,23 @@ const poem = [
   },
   {
     day: 175,
-    english: "The soil sweats; the body follows.",
+    english: "The soil sweats; the body follows",
     chinese: "泥土出汗；身体随之潮湿",
   },
   {
     day: 176,
-    english: "Nothing evaporates cleanly—a bead of salt stung.",
+    english: "Nothing evaporates cleanly—a bead of salt stung",
     chinese: "没有什么能干净蒸散——一滴盐般刺痛",
   },
   {
     day: 177,
-    english: "I hold my parents’ summers like blood in my chest.",
+    english: "I hold my parents’ summers like blood in my chest",
     chinese: "我把父母的夏天像血般揣在胸中",
   },
   {
     day: 178,
-    english: "My parents hold their grandparents like language in the air.",
-    chinese: "我的父母把祖辈像言语般悬于空气中",
+    english: "My parents hold their parents like language in the air",
+    chinese: "我的父母将他们的父母像语言般悬于空中",
   },
   {
     day: 179,
@@ -732,8 +732,8 @@ const poem = [
   },
   {
     day: 183,
-    english: "The lightness of my mother’s aloofness without her husband",
-    chinese: "母亲在无夫时的淡然轻盈",
+    english: "The lightness of my mother’s rage without her family",
+    chinese: "母亲的愤怒如此轻盈，却没有她的家人",
   },
   {
     day: 184,
@@ -764,45 +764,44 @@ const poem = [
   { day: 190, english: "White dew descends", chinese: "白露降" },
   {
     day: 191,
-    english: "Dew beads like withheld apologies.",
+    english: "Dew beads like withheld apologies",
     chinese: "露珠如被抑留的歉意凝成",
   },
   {
     day: 192,
-    english: "The fields glisten with a quiet I cannot swallow.",
+    english: "The fields glisten with a quiet I cannot swallow",
     chinese: "田野闪着我难以吞下的静谧",
   },
   {
     day: 193,
-    english: "My father folds his summer clothes in perfect squares.",
+    english: "My father folds his summer clothes in perfect squares",
     chinese: "我父亲把夏衣折成完美的方块",
   },
   {
     day: 194,
-    english:
-      "On his palm, a drop trembles—ready to answer the cold that’s coming.",
-    chinese: "在他掌心，水滴颤动——准备回应将至的寒冷",
+    english: "A drop trembles on his palm, shivering with anticipation",
+    chinese: "一滴水珠在他掌心颤动，因期待而战栗",
   },
   { day: 195, english: "Winter cicadas chirp", chinese: "寒蝉鸣" },
   {
     day: 196,
-    english: "Their thin song slices through the early dusk.",
+    english: "Their thin song slices through the early dusk",
     chinese: "它们稀薄的歌穿透早暮",
   },
   {
     day: 197,
-    english: "I think of every message I never sent you.",
+    english: "I think of every message I never sent you",
     chinese: "我想起所有未曾寄给你的讯息",
   },
   {
     day: 198,
-    english: "My mother braids her hair tighter, as if to brace herself.",
+    english: "My mother braids her hair tighter, as if to brace herself",
     chinese: "母亲把头发编得更紧，像要给自己壮胆",
   },
   {
     day: 199,
     english:
-      "The echo leaves a trail, reaching toward the hawk already circling ahead.",
+      "The echo leaves a trail, reaching toward the hawk already circling ahead",
     chinese: "回声留下一道痕，伸向前方盘旋的鹰",
   },
   {
@@ -812,12 +811,12 @@ const poem = [
   },
   {
     day: 201,
-    english: "The sky sharpens into its truest blue.",
+    english: "The sky sharpens into its truest blue",
     chinese: "天空锐利成最真实的蓝",
   },
   {
     day: 202,
-    english: "A single feather drifts, indecisive.",
+    english: "A single feather drifts, indecisive",
     chinese: "一根羽毛飘落，犹豫不决",
   },
   {
@@ -827,8 +826,8 @@ const poem = [
   },
   {
     day: 204,
-    english: "Below the tree line, something rustles—an entrance to solemnity.",
-    chinese: "林下有什么窸窣——通向庄重的入口",
+    english: "Below the tree line, something rustles",
+    chinese: "林下有什么窸窣",
   },
   {
     day: 205,
@@ -837,7 +836,7 @@ const poem = [
   },
   {
     day: 206,
-    english: "We lower our voices, barely a whisper.",
+    english: "We lower our voices, barely a whisper",
     chinese: "我们压低声音，几乎成耳语",
   },
   {
@@ -847,28 +846,28 @@ const poem = [
   },
   {
     day: 208,
-    english: "Everything grows heavier, even the light.",
+    english: "Everything grows heavier, even the light",
     chinese: "一切变得更沉重，连光也如此",
   },
   {
     day: 209,
-    english: "My grandmother smooths the tablecloth and places a bowl down.",
+    english: "My grandmother smooths the tablecloth and places a bowl down",
     chinese: "我的祖母抚平桌布，放下一个碗",
   },
   {
     day: 210,
-    english: "Quietly, she nods toward the rice plumping with soup.",
+    english: "Quietly, she nods toward the rice plumping with soup",
     chinese: "她默默点头，看着汤中渐鼓的米粒",
   },
   { day: 211, english: "The grain ripens", chinese: "禾乃登" },
   {
     day: 212,
-    english: "Golden, surely inevitable.",
+    english: "Golden, surely inevitable",
     chinese: "金黄，确然不可避免",
   },
   {
     day: 213,
-    english: "My hands hover above the stalks, unsure of their own steadiness.",
+    english: "My hands hover above the stalks, unsure of their own steadiness",
     chinese: "我的手悬在禾秆上，不确定自身是否稳固",
   },
   {
@@ -878,100 +877,98 @@ const poem = [
   },
   {
     day: 215,
-    english: "A season of harvesting demands no hesitation.",
+    english: "A season of harvesting demands no hesitation",
     chinese: "收获的季节不容犹豫",
   },
   {
     day: 216,
-    english:
-      "Somewhere inside me, a ripeness leans toward the geese on the horizon.",
-    chinese: "在我内里某处，成熟向地平线的鹅倾斜",
+    english: "Somewhere inside me, a ripeness leans on the horizon",
+    chinese: "在我内心深处，一种成熟正向着地平线倾斜",
   },
   { day: 217, english: "Wild geese arrive", chinese: "鸿雁来" },
   {
     day: 218,
-    english: "Their calls carve long corridors across the sky.",
+    english: "Their calls carve long corridors across the sky",
     chinese: "它们的叫声在天空中划出长长的通道",
   },
   {
     day: 219,
-    english: "Migration is a form of confession.",
+    english: "Migration is a form of confession",
     chinese: "迁徙是一种忏悔",
   },
   {
     day: 220,
-    english: "My breath fogs as I watch their arrowed flight.",
+    english: "My breath fogs as I watch their arrowed flight",
     chinese: "我看着它们如箭的飞行，呼吸成雾",
   },
   {
     day: 221,
     english:
-      "Their formation bends, as if making room for the ones returning south.",
+      "Their formation bends, as if making room for the ones returning south",
     chinese: "它们的队形弯曲，仿佛给返南者让路",
   },
   { day: 222, english: "Swallows return south", chinese: "玄鸟归" },
   {
     day: 223,
-    english: "Their departure severs summer cleanly.",
+    english: "Their departure severs summer cleanly",
     chinese: "它们的离去割断了夏天的延续",
   },
   {
     day: 224,
-    english: "My lips still taste of a cooling tea I didn’t finish.",
+    english: "My lips still taste of a cooling tea",
     chinese: "我嘴唇仍有未饮尽凉茶的余味",
   },
   {
     day: 225,
-    english: "You left like this once—decisive, airborne, kind.",
+    english: "You left like this once—decisive, airborne, kind",
     chinese: "你曾这样离开——果断、腾空、温柔",
   },
   {
     day: 226,
-    english: "Above the rooftops, the remaining birds gather food for storage.",
+    english: "Above the rooftops, the remaining birds gather food for storage",
     chinese: "屋顶上，剩余的鸟儿收集食物储藏",
   },
   { day: 227, english: "Birds storing food", chinese: "群鸟养羞" },
   {
     day: 228,
-    english: "They tuck seeds between stones, under fallen leaves.",
+    english: "They tuck seeds between stones, under fallen leaves",
     chinese: "它们将种子塞在石间，落叶下",
   },
   {
     day: 229,
-    english: "Instinct teaches them what to keep for later.",
+    english: "Instinct teaches them what to keep for later",
     chinese: "本能教会它们为未来保存什么",
   },
   {
     day: 230,
-    english: "My mother preserves fruit until the jar glows amber.",
+    english: "My mother preserves fruit until the jar glows amber",
     chinese: "母亲腌果，直到罐子泛着琥珀色",
   },
   {
     day: 231,
-    english: "The sweetness thickens, waiting for thunder to cease.",
-    chinese: "甜味变稠，等待雷声停歇",
+    english: "The sweetness thickens, waiting for thunder",
+    chinese: "甜味变稠，等待雷声",
   },
   { day: 232, english: "Thunder begins to cease", chinese: "雷始收声" },
   {
     day: 233,
-    english: "The sky finally exhales.",
+    english: "The sky finally exhales",
     chinese: "天空终于呼出一口气",
   },
   {
     day: 234,
-    english: "Silence presses its cool cheek against my neck.",
+    english: "Silence presses its cool cheek against my neck",
     chinese: "静默将凉意贴在我的颈侧",
   },
   {
     day: 235,
-    english: "My father locks the windows before night settles.",
+    english: "My father locks the windows before night settles",
     chinese: "夜幕降临前父亲锁上窗户",
   },
   {
     day: 236,
-    english:
-      "The stillness deepens until even insects begin sealing their doors.",
-    chinese: "寂静加深，连昆虫也开始封住巢门",
+    english: "The stillness deepens with the sounds of insects",
+    chinese: "寂静中夹杂着昆虫的鸣叫声",
   },
   {
     day: 237,
@@ -980,23 +977,22 @@ const poem = [
   },
   {
     day: 238,
-    english: "A soft scritch of dirt and intention.",
+    english: "A soft scritch of dirt and intention",
     chinese: "泥土与意图的轻微刮擦声",
   },
   {
     day: 239,
-    english: "Everything hides before it breaks.",
+    english: "Everything hides before it breaks",
     chinese: "一切在破碎前先行藏匿",
   },
   {
     day: 240,
-    english: "I bury a letter I never sent beneath a sapling.",
+    english: "I bury a letter I never sent beneath a sapling",
     chinese: "我把一封未寄的信埋在幼苗下",
   },
   {
     day: 241,
-    english:
-      "The roots, thirsty for winter, reach toward the drying riverbeds.",
+    english: "The roots, thirsty for winter, reach toward the drying riverbeds",
     chinese: "渴盼冬日的根伸向干涸的河床",
   },
   {
@@ -1006,22 +1002,22 @@ const poem = [
   },
   {
     day: 243,
-    english: "Stones shine where the currents once lived.",
+    english: "Stones shine where the currents once lived",
     chinese: "流水曾经的地方石头闪亮",
   },
   {
     day: 244,
-    english: "I kneel to touch a river’s ribcage.",
+    english: "I kneel to touch a river’s ribcage",
     chinese: "我跪下触摸河流的肋骨",
   },
   {
     day: 245,
-    english: "A heron lifts itself into the thinning air.",
+    english: "A heron lifts itself into the thinning air",
     chinese: "苍鹭振翅进入稀薄的空气",
   },
   {
     day: 246,
-    english: "Its wings beat a path toward the colder dew waiting ahead.",
+    english: "Its wings beat a path toward the colder dew waiting ahead",
     chinese: "它的翅膀拍打出一条通向前方寒露的路",
   },
   {
@@ -1031,24 +1027,23 @@ const poem = [
   },
   {
     day: 248,
-    english: "Their shadows flicker across harvested fields.",
+    english: "Their shadows flicker across harvested fields",
     chinese: "它们的影子在收割过的田野上闪烁",
   },
   {
     day: 249,
-    english: "The air tastes metallic with change.",
+    english: "The air tastes metallic with change",
     chinese: "空气带着金属味的变迁",
   },
   {
     day: 250,
-    english: "My hands ache from gathering what’s left.",
+    english: "My hands ache from gathering what’s left",
     chinese: "我因收拾残余而手酸",
   },
   {
     day: 251,
-    english:
-      "A flock splits neatly—as if preparing for a transformation stranger than sparrows.",
-    chinese: "一群鸟整齐分裂——仿佛准备迎接比麻雀更奇异的变形",
+    english: "A flock splits neatly",
+    chinese: "一群鸟整齐分裂",
   },
   {
     day: 252,
@@ -1057,23 +1052,23 @@ const poem = [
   },
   {
     day: 253,
-    english: "The world folds into metaphor.",
+    english: "The world folds into metaphor",
     chinese: "世界折叠为隐喻",
   },
   {
     day: 254,
-    english: "A shell is only a wing learning stillness.",
+    english: "A shell is only a wing learning stillness",
     chinese: "贝壳只是翅膀学习静止的模样",
   },
   {
     day: 255,
-    english: "I picture myself inside a tidepool, waiting for release.",
+    english: "I picture myself inside a tidepool, waiting for release",
     chinese: "我想象自己在潮池中，等待释放",
   },
   {
     day: 256,
-    english: "Even the chrysanthemums hesitate before showing yellow.",
-    chinese: "连菊花在露出黄之前也犹豫",
+    english: "Even the chrysanthemums hesitate before blooming",
+    chinese: "就连菊花在盛开前也会犹豫片刻",
   },
   {
     day: 257,
@@ -1082,24 +1077,23 @@ const poem = [
   },
   {
     day: 258,
-    english: "Yellow mouths opening toward the cold.",
+    english: "Yellow mouths opening toward the cold",
     chinese: "黄色的花瓣向寒冷张开口",
   },
   {
     day: 259,
-    english: "My grandmother arranges them on her altar, one by one.",
+    english: "My grandmother arranges them on her altar, one by one",
     chinese: "祖母把它们一朵一朵摆在祭坛上",
   },
   {
     day: 260,
-    english: "Every petal feels like a softened blade.",
+    english: "Every petal feels like a softened blade",
     chinese: "每瓣花瓣像被磨软的刀刃",
   },
   {
     day: 261,
-    english:
-      "Their scent lingers, pointing toward the frost preparing to descend.",
-    chinese: "它们的香气徘徊，指向即将降下的霜",
+    english: "Their scent lingers, pointing toward the frost",
+    chinese: "它们的香气徘徊，指向即将降",
   },
   {
     day: 262,
@@ -1108,23 +1102,23 @@ const poem = [
   },
   {
     day: 263,
-    english: "A single white breath escapes the brush.",
+    english: "A single white breath escapes the brush",
     chinese: "一口白气从灌木间溢出",
   },
   {
     day: 264,
-    english: "Predators practice their ancient ceremonies.",
+    english: "Predators practice their ancient ceremonies",
     chinese: "掠食者演练它们古老的仪式",
   },
   {
     day: 265,
-    english: "I think of my own rituals of letting go.",
-    chinese: "我思及自己的放手礼仪",
+    english: "I practice my own rituals of letting go",
+    chinese: "我实践着自己的一套放手仪式。",
   },
   {
     day: 266,
-    english: "Somewhere near the treeline, leaves yellow to their edges.",
-    chinese: "林线附近，叶子向边缘泛黄",
+    english: "Along the treeline, leaves yellow to their edges",
+    chinese: "树线附近的树叶边缘都泛黄了",
   },
   {
     day: 267,
@@ -1133,22 +1127,22 @@ const poem = [
   },
   {
     day: 268,
-    english: "They fall without protest.",
+    english: "They fall without protest",
     chinese: "它们无声无息地飘落",
   },
   {
     day: 269,
-    english: "A soft rain of endings.",
+    english: "A soft rain of endings",
     chinese: "一场柔软的终结之雨",
   },
   {
     day: 270,
-    english: "My mother sweeps the path in slow, sure strokes.",
+    english: "My mother sweeps the path in slow, sure strokes",
     chinese: "母亲以缓慢而稳健的动作扫着小径",
   },
   {
     day: 271,
-    english: "Each leaf curls inward, retreating toward the insects below.",
+    english: "Each leaf curls inward, retreating toward the insects below",
     chinese: "每片叶子向内卷曲，退向下面的昆虫",
   },
   {
@@ -1158,23 +1152,23 @@ const poem = [
   },
   {
     day: 273,
-    english: "Their bodies tuck into sleep, into safety.",
+    english: "Their bodies tuck into sleep, into safety",
     chinese: "它们的身体蜷入睡眠，进入安全",
   },
   {
     day: 274,
-    english: "The soil seals behind them like a closing door.",
-    chinese: "泥土在它们身后封合，如关上的门",
+    english: "The soil seals behind them like a kiss",
+    chinese: "它们身后的泥土像一个吻般封住了缝隙",
   },
   {
     day: 275,
-    english: "I kneel to touch the earth, feeling its shallow warmth.",
+    english: "I kneel to touch the earth, feeling its shallow warmth",
     chinese: "我跪下触摸泥土，感受浅浅的温热",
   },
   {
     day: 276,
-    english: "Beneath my palm, winter’s first hush begins to rise.",
-    chinese: "掌下，冬日的第一抹静默开始升起",
+    english: "Beneath my palm, winter’s first hush",
+    chinese: "掌下，冬日的第一抹静默",
   },
   { day: 277, english: "Water starts to freeze", chinese: "水始冻" },
   {
@@ -1189,8 +1183,8 @@ const poem = [
   },
   {
     day: 280,
-    english: "A childhood memory surfaces: breaking ice with a stick",
-    chinese: "童年记忆浮现：用棍子敲碎冰面",
+    english: "A childhood memory surfaces: poking crabs with a stick",
+    chinese: "一段童年记忆浮现：用棍子戳螃蟹。",
   },
   {
     day: 281,
@@ -1235,13 +1229,13 @@ const poem = [
   },
   {
     day: 290,
-    english: "My father once told me stories he didn’t believe",
-    chinese: "父亲曾讲给我他自己也不信的故事",
+    english: "Once, my father told me stories of lies and deceit",
+    chinese: "父亲曾给我讲过一些关于谎言和欺骗的故事。",
   },
   {
     day: 291,
-    english: "The mirror of ice thickens, holding its own silence",
-    chinese: "冰镜变厚，守着它的沉默",
+    english: "The mirror of ice thickens, holding its voice",
+    chinese: "冰镜渐厚，抑制着它的声音",
   },
   {
     day: 292,
@@ -1250,8 +1244,8 @@ const poem = [
   },
   {
     day: 293,
-    english: "Color withdraws without ceremony",
-    chinese: "色彩无礼貌地退却",
+    english: "Colors retreat without acknowledgement",
+    chinese: "色彩悄然退却",
   },
   {
     day: 294,
@@ -1285,8 +1279,8 @@ const poem = [
   },
   {
     day: 300,
-    english: "I stand between them, unsure which to follow",
-    chinese: "我站在它们之间，不知该随哪一方",
+    english: "I stand between them, unsure which of the measure",
+    chinese: "我站在他们中间，不知该如何抉择",
   },
   {
     day: 301,
@@ -1305,13 +1299,13 @@ const poem = [
   },
   {
     day: 304,
-    english: "My mother burns ginger to warm the house",
-    chinese: "我母亲烧姜温暖屋子",
+    english: "My mother burns brushes to warm the house",
+    chinese: "我母亲烧草来取暖",
   },
   {
     day: 305,
-    english: "We sit and say little, which is its own closeness",
-    chinese: "我们静坐少言，这本身便是一种亲近",
+    english: "We sit and say little, a closeness of darkness",
+    chinese: "我们静静地坐着，很少说话，黑暗笼罩着我们。",
   },
   {
     day: 306,
@@ -1331,8 +1325,8 @@ const poem = [
   },
   {
     day: 310,
-    english: "Grief, too, has its mute season",
-    chinese: "哀伤也有它的无声季节",
+    english: "A reminder of the season of grief",
+    chinese: "提醒大家，这是一个悲伤的季节",
   },
   {
     day: 311,
@@ -1347,12 +1341,12 @@ const poem = [
   },
   {
     day: 314,
-    english: "Heat coils inside cold, hidden",
-    chinese: "热在冷中盘绕，隐藏其形",
+    english: "Heat coils inside cold",
+    chinese: "热在冷中盘绕",
   },
   {
     day: 315,
-    english: "My father lights a cigarette near the open door",
+    english: "My father smokes near the open door",
     chinese: "父亲在开着的门旁点起烟",
   },
   {
@@ -1373,8 +1367,8 @@ const poem = [
   },
   {
     day: 320,
-    english: "My grandmother said beauty in winter is a kind of defiance",
-    chinese: "祖母说冬日之美是一种反抗",
+    english: "My grandmother, in the factory, has never seen its beauty",
+    chinese: "我的祖母在工厂工作，从未见过它的美。",
   },
   {
     day: 321,
@@ -1389,8 +1383,8 @@ const poem = [
   },
   {
     day: 324,
-    english: "I light a candle for no reason, watching wax shiver",
-    chinese: "我无故点燃一支蜡烛，看蜡泪颤抖",
+    english: "I light a candle, watching wax shiver",
+    chinese: "我点燃一支蜡烛，看蜡泪颤抖",
   },
   {
     day: 325,
@@ -1405,8 +1399,8 @@ const poem = [
   { day: 327, english: "Deer shed their horns", chinese: "麇角解" },
   {
     day: 328,
-    english: "Release is an ancient instinct",
-    chinese: "释然是一种古老的本能",
+    english: "Release is a natural instinct",
+    chinese: "释放是一种自然本能",
   },
   {
     day: 329,
@@ -1415,8 +1409,8 @@ const poem = [
   },
   {
     day: 330,
-    english: "I turn off the candle and feel the room exhale",
-    chinese: "我吹灭蜡烛，感到房间呼出一口气",
+    english: "I quash the candle and feel the room exhale",
+    chinese: "我掐灭蜡烛，感觉房间呼出一口气",
   },
   {
     day: 331,
@@ -1440,8 +1434,8 @@ const poem = [
   },
   {
     day: 335,
-    english: "I press my ear to the ground like a child",
-    chinese: "我像孩童般贴耳于地",
+    english: "I press my ear to the ground",
+    chinese: "我贴耳于地",
   },
   {
     day: 336,
@@ -1451,8 +1445,8 @@ const poem = [
   { day: 337, english: "Geese migrate northward", chinese: "雁北乡" },
   {
     day: 338,
-    english: "Even winter suggests a future",
-    chinese: "即便冬天也暗示未来",
+    english: "Deep in mourning, spring must always return",
+    chinese: "即使在深深的哀悼中，春天也终将回归",
   },
   {
     day: 339,
@@ -1503,18 +1497,18 @@ const poem = [
   },
   {
     day: 350,
-    english: "The first drip of meltwater falls along the crack",
-    chinese: "第一滴融水沿裂缝落下",
+    english: "The first drip of water falls along the crack",
+    chinese: "第一滴水沿裂缝落下",
   },
   { day: 351, english: "Hens begin to brood", chinese: "鸡乳" },
   {
     day: 352,
-    english: "Warmth gathers in unlikely places",
-    chinese: "温暖在意想不到的角落聚集",
+    english: "A reminder of the cycle of life",
+    chinese: "提醒我们生命的循环",
   },
   {
     day: 353,
-    english: "I tuck extra blankets around myself",
+    english: "I tuck extra blankets and circle myself",
     chinese: "我把额外的毯子裹紧自己",
   },
   {
@@ -1524,8 +1518,8 @@ const poem = [
   },
   {
     day: 355,
-    english: "The meltwater threads along the ground",
-    chinese: "融水在地面上蜿蜒流淌",
+    english: "Water threads along the ground",
+    chinese: "水在地面上蜿蜒流淌",
   },
   { day: 356, english: "Birds of prey hunt swiftly", chinese: "征鸟厉疾" },
   {
@@ -1540,13 +1534,13 @@ const poem = [
   },
   {
     day: 359,
-    english: "I sip hot tea and feel my chest unclench",
+    english: "I sip tea and feel my chest unclench",
     chinese: "我啜热茶，感到胸口松开",
   },
   {
     day: 360,
-    english: "The water from the ice moves more freely",
-    chinese: "冰化的水流动得更自由",
+    english: "The water from the ice moves freely",
+    chinese: "冰化的水流动的自由",
   },
   {
     day: 361,
@@ -1565,8 +1559,8 @@ const poem = [
   },
   {
     day: 364,
-    english: "I stand outside and let the cold flatten my breath",
-    chinese: "我站在外面，让寒冷压平我的呼吸",
+    english: "I let the cold flatten my breath",
+    chinese: "我让寒冷压平我的呼吸",
   },
   {
     day: 365,
