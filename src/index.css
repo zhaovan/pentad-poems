@@ -24,6 +24,7 @@
 @font-face {
   font-family: "Clarendon";
   src: url("/Clarendon-Black.ttf") format("truetype");
+  font-display: block;
 }
 
 @font-face {
