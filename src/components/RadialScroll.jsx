@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useMotionValueEvent,
   useTransform,
+  useVelocity,
 } from "motion/react";
 import SeasonsCanvas from "./SeasonsCanvas";
 import SeasonsBackground from "./SeasonsBackground";
@@ -406,18 +407,24 @@ export default function Radial() {
             const wrapped = poem.length - raw;
             const diff = Math.min(raw, wrapped); // 👈 circular distance!
 
-            const opacity = diff <= VISIBLE_RANGE ? 1 : 0;
+            const opacity =
+              diff === 0
+                ? 1
+                : diff <= VISIBLE_RANGE
+                ? (1 / (diff + 1)) ** 2
+                : 0;
 
             return (
               <motion.p
                 key={i}
                 style={{
                   "--index": i,
-                  opacity,
+                  opacity: opacity,
                   position: "fixed",
                   top: width < 600 ? "75%" : "50%",
                   fontSize: "1.5rem",
-                  color: "var(--text-dark-green",
+                  color: "var(--text-dark-green)",
+                  transition: "opacity 0.3s ease-out",
                   transform: `
                   rotate(${angle}deg)
                   translate(${RADIUS}px)
