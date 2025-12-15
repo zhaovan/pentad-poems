@@ -133,12 +133,8 @@ function Calendar() {
               layout: { duration: 0.5, type: "tween", ease: "easeOut" },
               opacity: { duration: 0.5 },
             }}
+            className="explanation-panel"
             style={{
-              position: "fixed",
-              top: "25%",
-              left: "25%",
-              width: "50%",
-              height: "50%",
               backgroundColor: "var(--background-primary)",
               zIndex: 200,
               borderRadius: "0.25rem",

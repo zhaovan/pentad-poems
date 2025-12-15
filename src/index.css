@@ -15,7 +15,7 @@
   --text-primary: #1d0303;
 
   --text-green: #4eac15;
-  --text-dark-green: #022e18;
+  --text-dark-green: #021e10;
   --text-red: #e71717;
 
   --background-primary: #0c1d03;
@@ -279,6 +279,13 @@ h6 {
   gap: 0rem;
 }
 
+.explanation-panel {
+  width: 50%;
+  position: fixed;
+  top: 5%;
+  left: 25%;
+}
+
 @media (max-width: 600px) {
   .all-lines-eng {
     font-size: 1rem;
@@ -301,5 +308,13 @@ h6 {
 
   .landing-screen-container {
     gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .explanation-panel {
+    top: 10%;
+    width: 75%;
+    left: 10%;
   }
 }

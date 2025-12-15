@@ -1,7 +1,7 @@
 export default function IntermediaryScreen() {
   return (
     <>
-      <p>
+      <p className="sans">
         The chinese lunisolar calendar (黄历) is a traditional time-tracking
         system meant to be useful to villagers and farmers for agricultural and
         cultural purposes. The history of the calendar is vast and complex (and
@@ -28,7 +28,12 @@ export default function IntermediaryScreen() {
         lunisolar calendar. The Chinese translations were done through Google
         translate and the Libre Translate API, and have not been reviewed by a
         native speaker (and so apologies for the inaccuracies in syntax or
-        diction).
+        diction). This website was created by{" "}
+        <a href="https://ivanzhao.me/">Ivan Zhao</a> during the{" "}
+        <a href="https://www.welcometomyhomepage.net/">
+          Welcome to My Homepage
+        </a>{" "}
+        residency.
       </p>
     </>
   );
