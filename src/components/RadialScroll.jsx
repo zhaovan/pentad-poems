@@ -2,11 +2,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import poem from "../Poem";
 import {
   useScroll,
-  motion,
   useMotionValue,
   useMotionValueEvent,
   useTransform,
-  useVelocity,
+  motion,
 } from "motion/react";
 import SeasonsCanvas from "./SeasonsCanvas";
 import SeasonsBackground from "./SeasonsBackground";
@@ -65,12 +64,7 @@ export default function Radial() {
   const pheasantAudio = useRef(null);
   const thunderAudio = useRef(null);
 
-  const [isCicadaActive, setIsCicadaActive] = useState(false);
-  const [isMockingbirdActive, setIsMockingbirdActive] = useState(false);
-  const [isPheasantActive, setIsPheasantActive] = useState(false);
-  const [isRiverActive, setIsRiverActive] = useState(false);
-
-  const [isThunderActive, setIsThunderActive] = useState(false);
+  // Audio state is set for side effects only; not used in render
 
   const activeIndex = useMotionValue(0);
 
@@ -84,13 +78,11 @@ export default function Radial() {
       }
       if (v === 0) {
         const target = document.body.scrollHeight;
-
         window.scrollTo({ top: target });
       }
     });
-
     return () => unsub();
-  }, []);
+  }, [scrollYProgress]);
 
   useLayoutEffect(() => {
     if ("scrollRestoration" in history) {
@@ -98,11 +90,12 @@ export default function Radial() {
     }
 
     const todaysDate = new Date();
-    const startingDate = new Date(2025, 1, 4);
-    const timeDiff = todaysDate - startingDate;
-    const dayDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-
-    const scrollPosition = TOTAL_SCROLL_HEIGHT * ((dayDiff - 1) / 365);
+    const startingDate = new Date(2025, 1, 3); // Feb 4, 2025
+    const msPerDay = 1000 * 60 * 60 * 24;
+    // Calculate days since reference, wrap in 0-364
+    const dayDiff = Math.floor((todaysDate - startingDate) / msPerDay);
+    const dayOfCycle = ((dayDiff % 365) + 365) % 365; // always positive
+    const scrollPosition = TOTAL_SCROLL_HEIGHT * (dayOfCycle / 365);
 
     // Wait two frames so DOM fully settles
     requestAnimationFrame(() => {
@@ -132,7 +125,7 @@ export default function Radial() {
 
   const month = formattedDate.split(" ")[0];
   const monthIndex = new Date(
-    currentDate?.date ? new Date(currentDate.date) : new Date()
+    currentDate?.date ? new Date(currentDate.date) : new Date(),
   ).getMonth();
   const monthInChinese = monthsInChinese[monthIndex];
   const day = formattedDate.split(" ")[1];
@@ -191,20 +184,16 @@ export default function Radial() {
 
     if (riverAudio.current) {
       if (RIVER_SOUND[0] <= index && index <= RIVER_SOUND[1]) {
-        setIsRiverActive(true);
         riverAudio.current.play();
       } else {
-        setIsRiverActive(false);
         riverAudio.current.pause();
       }
     }
 
     if (thunderAudio.current) {
       if (THUNDER_ACTIVE[0] <= index && index <= THUNDER_ACTIVE[1]) {
-        setIsThunderActive(true);
         thunderAudio.current.play();
       } else {
-        setIsThunderActive(false);
         thunderAudio.current.pause();
       }
     }
@@ -216,29 +205,22 @@ export default function Radial() {
     ) {
       if (CICADA_CRY[0] <= index && index <= CICADA_CRY[1]) {
         cicadaAudio.current.play();
-        setIsCicadaActive(true);
       } else {
         cicadaAudio.current.pause();
-
-        setIsCicadaActive(false);
       }
 
       if (MOCKINGBIRD_CRY[0] <= index && index <= MOCKINGBIRD_CRY[1]) {
         mockingbirdAudio.current.play();
-        setIsMockingbirdActive(true);
       } else {
         mockingbirdAudio.current.pause();
-        setIsMockingbirdActive(false);
       }
 
       if (PHEASANT_NO_CRY[0] > index || index > PHEASANT_NO_CRY[1]) {
         if (pheasantAudio.current.paused) {
           pheasantAudio.current.play();
-          setIsPheasantActive(true);
         }
       } else {
         pheasantAudio.current.pause();
-        setIsPheasantActive(false);
       }
     }
   });
@@ -250,7 +232,7 @@ export default function Radial() {
     // Convert rotation → index
     const index = Math.round(
       (((rotationDeg / DEGREES_PER_ITEM) % poem.length) + poem.length) %
-        poem.length
+        poem.length,
     );
 
     activeIndex.set(index);
@@ -259,7 +241,7 @@ export default function Radial() {
 
   const transformedScrollY = useTransform(
     scrollY,
-    (value) => (value * -1) / 20
+    (value) => (value * -1) / 20,
   );
 
   if (!ready) {
@@ -401,7 +383,6 @@ export default function Radial() {
           }}
         >
           {poem.map((line, i) => {
-            const angle = i * ANGLE_STEP;
             const current = activeIndex.get();
             const raw = Math.abs(current - i);
             const wrapped = poem.length - raw;
@@ -411,8 +392,8 @@ export default function Radial() {
               diff === 0
                 ? 1
                 : diff <= VISIBLE_RANGE
-                ? (1 / (diff + 1)) ** 2
-                : 0;
+                  ? (1 / (diff + 1)) ** 2
+                  : 0;
 
             return (
               <motion.p
@@ -426,9 +407,9 @@ export default function Radial() {
                   color: "var(--text-dark-green)",
                   transition: "opacity 0.3s ease-out",
                   transform: `
-                  rotate(${angle}deg)
+                  rotate(${i * ANGLE_STEP}deg)
                   translate(${RADIUS}px)
-                  
+              
                 `,
                   transformOrigin: "top left",
                   width: "max-content",
@@ -469,7 +450,6 @@ export default function Radial() {
 
       {/* Mobile display */}
       {poem.map((line, i) => {
-        const angle = i * ANGLE_STEP;
         const current = activeIndex.get();
         const raw = Math.abs(current - i);
         const wrapped = poem.length - raw;
