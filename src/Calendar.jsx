@@ -81,11 +81,11 @@ function Calendar() {
           onClick={() => switchModes()}
           style={{
             backgroundColor: "var(--background-primary)",
-
             border: "none",
             cursor: "pointer",
             padding: "0.5rem",
             borderRadius: "0.25rem",
+            color: "white",
           }}
         >
           {renderIcon()}
@@ -110,6 +110,7 @@ function Calendar() {
             onClick={() => setOpenExplanation(!openExplanation)}
             style={{
               backgroundColor: "var(--background-primary)",
+              color: "white",
               border: "none",
               cursor: "pointer",
               padding: "0.5rem",
