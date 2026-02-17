@@ -179,7 +179,9 @@ h6 {
   background-clip: text;
   color: transparent; /* for browsers that support background-clip */
   /* subtle edge to help readability on any background */
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.35);
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.15),
+    0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
 .text-fit {
@@ -284,6 +286,7 @@ h6 {
   position: fixed;
   top: 5%;
   left: 25%;
+  color: rgb(229, 229, 229);
 }
 
 @media (max-width: 600px) {
