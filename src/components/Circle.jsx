@@ -21,6 +21,13 @@ export default function Circle() {
     }
   });
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAngleMultiplier((prev) => prev + 1);
+    }, 125);
+    return () => clearInterval(interval);
+  });
+
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {

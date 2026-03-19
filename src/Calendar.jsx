@@ -17,6 +17,7 @@ function Calendar() {
   // radial or all-lines or cicle
   const [mode, setMode] = useState("radial");
   const [openExplanation, setOpenExplanation] = useState(false);
+  const [showControls, setShowControls] = useState(true);
 
   const chimeAudio = useRef(null);
 
@@ -39,6 +40,17 @@ function Calendar() {
       return <SunIcon />;
     }
   }
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.metaKey && e.key === "\\") {
+        e.preventDefault();
+        setShowControls((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   useEffect(() => {
     chimeAudio.current = new Audio("/chimes.mp3");
@@ -75,6 +87,9 @@ function Calendar() {
           zIndex: 100,
           display: "flex",
           gap: "0.5rem",
+          opacity: showControls ? 1 : 0,
+          pointerEvents: showControls ? "auto" : "none",
+          transition: "opacity 0.3s ease",
         }}
       >
         <button

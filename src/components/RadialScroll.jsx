@@ -71,6 +71,13 @@ export default function Radial() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      window.scrollBy(0, 20);
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
     const unsub = scrollYProgress.on("change", (v) => {
       if (v === 1) {
         const target = 0;
@@ -261,9 +268,9 @@ export default function Radial() {
     return a + (b - a) * t;
   }
 
-  if (width < 1200) {
+  if (width < 1000) {
     RADIUS = lerp(10, 200, width / 1000);
-    VISIBLE_RANGE = 0;
+    VISIBLE_RANGE = 2;
   }
 
   return (
@@ -379,6 +386,7 @@ export default function Radial() {
             display: width < 600 ? "none" : "block",
             zIndex: 30,
             top: "50%",
+
             rotate: transformedScrollY, // whole wheel rotates with scroll
           }}
         >
