@@ -43,7 +43,7 @@ function Calendar() {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.metaKey && e.key === "p") {
+      if (e.metaKey && e.key === "\\") {
         e.preventDefault();
         setShowControls((v) => !v);
       }
